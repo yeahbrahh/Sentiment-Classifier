@@ -3,8 +3,11 @@ import pandas as pd
 # Separate and Label Classes
 data_path = "dataset/Health_and_Personal_Care.jsonl"
 
+# Clean dataset
 df = pd.read_json(data_path, lines=True)
-df = df[["title", "text", "rating"]]
+df["text"] = df["title"].fillna("") + " " + df["text"].fillna("")
+df = df.query("verified_purchase == True")
+df = df[["text", "rating"]]
 
 pos_df = df.query("rating == 4 or rating == 5")
 neg_df = df.query("rating == 1 or rating == 2")
@@ -40,4 +43,4 @@ from sklearn.metrics import accuracy_score, classification_report
 
 print(f"Overall Accuracy: {accuracy_score(y_test, y_pred):.2%}\n")
 print("--- Evaluation Report ---")
-print(classification_report(y_test, y_pred, target_names=['Negative', 'Positive']))
+print(classification_report(y_test, y_pred, target_names=['Negative', 'Positive'],digits=4))
