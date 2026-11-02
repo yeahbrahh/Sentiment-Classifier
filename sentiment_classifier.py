@@ -1,12 +1,11 @@
 import pandas as pd
 
-# Separate and Label Classes
 data_path = "dataset/Health_and_Personal_Care.jsonl"
 
 # Clean dataset
 df = pd.read_json(data_path, lines=True)
-df["text"] = df["title"].fillna("") + " " + df["text"].fillna("")
 df = df.query("verified_purchase == True")
+df["text"] = df["title"].fillna("") + " " + df["text"].fillna("")
 df = df[["text", "rating"]]
 
 pos_df = df.query("rating == 4 or rating == 5")
@@ -34,7 +33,7 @@ from sklearn.pipeline import Pipeline
 # Create Pipeline for Linear SVM
 pipeline = Pipeline([
     ('tfidf', TfidfVectorizer(stop_words='english', ngram_range=(1, 2))),
-    ('svm', LinearSVC(random_state=42, dual=False))
+    ('svm', LinearSVC(class_weight="balanced", random_state=42, dual=False))
 ])
 pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)
@@ -44,3 +43,9 @@ from sklearn.metrics import accuracy_score, classification_report
 print(f"Overall Accuracy: {accuracy_score(y_test, y_pred):.2%}\n")
 print("--- Evaluation Report ---")
 print(classification_report(y_test, y_pred, target_names=['Negative', 'Positive'],digits=4))
+
+from sklearn.model_selection import cross_val_score
+
+from sklearn.model_selection import GridSearchCV
+
+from sklearn.metrics import confusion_matrix
