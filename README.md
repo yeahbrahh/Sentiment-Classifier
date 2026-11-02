@@ -47,3 +47,16 @@ We'll look at the model's coefficients to see what specific words are driving th
 - **Pandas**: Used for cleaning up the data, filtering out neutral reviews, and organizing everything into DataFrames so it's ready to use.
 - **Scikit-Learn**: Handles the core machine learning work.
 - **Matplotlib**: Used for drawing charts and graphs to visualize things like the balance of positive vs. negative reviews and the model's results.
+
+## Test Statistics
+### Initial Evaluation Report
+
+* **Overall Accuracy:** 94.18\%
+
+| Class / Metric | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **Negative** | 0.8578 | 0.8782 | 0.8679 | 17,912 |
+| **Positive** | 0.9659 | 0.9595 | 0.9627 | 64,431 |
+| **Accuracy** | — | — | 0.9418 | 82,343 |
+| **Macro Avg** | 0.9119 | 0.9189 | 0.9153 | 82,343|
+| **Weighted Avg** | 0.9424 | 0.9418 | 0.9421 | 82,343 |
