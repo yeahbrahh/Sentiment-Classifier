@@ -1,0 +1,10 @@
+Basic game plan:
+Cut the neutral 3 ratings 
+Balance the data using scikit
+Perhaps make a visual of what that gets us so we can see what needs to happen 
+Clean up data further using PCA if needed to make a good visual for the data
+Validate using cross validation to get hyper parameter C
+Create the SVM with scikit
+Test the initial accuracy, generate all the classifier accuracy, and create a confusion table to determine what needs to be improved
+Improve the model based off the results and repeat
+Generate some cool tables and graphs based off what our model does and submit 
