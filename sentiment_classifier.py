@@ -24,7 +24,7 @@ y = combined_df['sentiment']
 from sklearn.model_selection import train_test_split
 
 # Split into train/test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
 from sklearn.svm import LinearSVC
 from sklearn.feature_extraction.text import TfidfVectorizer
