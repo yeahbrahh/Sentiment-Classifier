@@ -55,4 +55,17 @@ print(f"Mean macro-F1: {cv_scores.mean():.4f} (+/- {cv_scores.std():.4f})")
 
 from sklearn.model_selection import GridSearchCV
 
+# Set Up and Run Grid Search to Tune Hyperparameters
+param_grid = {'tfidf__stop_words': [None, 'english'], # Removes common English words
+              'tfidf__ngram_range': [(1, 1), (1, 2)], # Single words only
+              'svm__C': [0.1, 0.5, 1.0],
+              }
+
+grid = GridSearchCV(pipeline, param_grid, cv=5, scoring='f1_macro', n_jobs=-1, verbose=1)
+grid.fit(X_train, y_train)
+
+print(f"Best macro-F1: {grid.best_score_:.4f}  (baseline: 0.9130)")
+print(f"Best params: {grid.best_params_}")
+
+
 from sklearn.metrics import confusion_matrix
