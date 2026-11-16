@@ -46,6 +46,13 @@ print(classification_report(y_test, y_pred, target_names=['Negative', 'Positive'
 
 from sklearn.model_selection import cross_val_score
 
+# Cross-Validation
+# This takes a while, so if it sucks enable n_jobs
+cv_scores = cross_val_score(pipeline, X_train, y_train, cv=5, scoring='f1_macro', n_jobs=-1)
+
+print(f"Fold scores: {cv_scores.round(4)}")
+print(f"Mean macro-F1: {cv_scores.mean():.4f} (+/- {cv_scores.std():.4f})")
+
 from sklearn.model_selection import GridSearchCV
 
 from sklearn.metrics import confusion_matrix
