@@ -60,3 +60,12 @@ We'll look at the model's coefficients to see what specific words are driving th
 | **Accuracy** | — | — | 0.9418 | 82,343 |
 | **Macro Avg** | 0.9119 | 0.9189 | 0.9153 | 82,343|
 | **Weighted Avg** | 0.9424 | 0.9418 | 0.9421 | 82,343 |
+
+## Cross Validation
+Fold scores: [0.913  0.914  0.9144 0.913  0.9105]
+Mean macro-F1: 0.9130 (+/- 0.0014)
+
+## Tuning Hyperparameter C
+Tested removing common English words and only single words
+C = [0.1, 0.5, 1.0] returns C=1.0
+C = [1.0, 2.0, 5.0] returns C=1.0
