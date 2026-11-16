@@ -24,7 +24,7 @@ y = combined_df['sentiment']
 from sklearn.model_selection import train_test_split
 
 # Split into train/test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
 from sklearn.svm import LinearSVC
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -46,6 +46,26 @@ print(classification_report(y_test, y_pred, target_names=['Negative', 'Positive'
 
 from sklearn.model_selection import cross_val_score
 
+# Cross-Validation
+# This takes a while, so if it sucks enable n_jobs
+cv_scores = cross_val_score(pipeline, X_train, y_train, cv=5, scoring='f1_macro', n_jobs=-1)
+
+print(f"Fold scores: {cv_scores.round(4)}")
+print(f"Mean macro-F1: {cv_scores.mean():.4f} (+/- {cv_scores.std():.4f})")
+
 from sklearn.model_selection import GridSearchCV
+
+# Set Up and Run Grid Search to Tune Hyperparameters
+param_grid = {'tfidf__stop_words': [None, 'english'], # Removes common English words
+              'tfidf__ngram_range': [(1, 1), (1, 2)], # Single words only
+              'svm__C': [0.1, 0.5, 1.0],
+              }
+
+grid = GridSearchCV(pipeline, param_grid, cv=5, scoring='f1_macro', n_jobs=-1, verbose=1)
+grid.fit(X_train, y_train)
+
+print(f"Best macro-F1: {grid.best_score_:.4f}  (baseline: 0.9130)")
+print(f"Best params: {grid.best_params_}")
+
 
 from sklearn.metrics import confusion_matrix
